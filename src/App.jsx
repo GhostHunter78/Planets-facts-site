@@ -9,7 +9,8 @@ function App() {
     <Main>
       <Header />
       <Routes>
-        <Route path="/home" element={<Home />} />
+        {/* <Route path="/" element={<Navigate to="/planets/mercury" />} /> */}
+        <Route path="/planets/:name" element={<Home />} />
       </Routes>
     </Main>
   );
