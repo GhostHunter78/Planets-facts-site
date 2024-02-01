@@ -17,29 +17,6 @@ const planets = [
 ];
 
 const Header = () => {
-  const { name } = useParams();
-
-  // const getPlanetColor = (planetName) => {
-  //   const normalizedPlanetName =
-  //     typeof planetName === "string" ? planetName.toLowerCase() : "";
-
-  //   const planet = planets.find(
-  //     (p) => p.name.toLowerCase() === normalizedPlanetName
-  //   );
-
-  //   // return planet ? planet.color : "yellow";
-  //   return normalizedPlanetName === planet ? planet.color : "blue";
-  // };
-
-  const getPlanetColor = (planetName) => {
-    const normalizedPlanetName = planetName.toLowerCase();
-    const planet = planets.find(
-      (p) => p.name.toLowerCase() === normalizedPlanetName
-    );
-    return planet ? planet.color : "white";
-  };
-
-  const activeNavigationColor = getPlanetColor(name);
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
@@ -68,15 +45,6 @@ const Header = () => {
         <LogoText>THE PLANETS</LogoText>
         <BurgerIcon onClick={handleClick} isClicked={isClicked} />
       </LogoAndBurgerIcon>
-      <Line></Line>
-      <NavigationDiv>
-        <ActiveNavigationDiv borderColor={activeNavigationColor}>
-          <NavigationWord>OVERVIEW</NavigationWord>
-        </ActiveNavigationDiv>
-        {/* <NavigationWord>OVERVIEW</NavigationWord> */}
-        <NavigationWord>STRUCTURE</NavigationWord>
-        <NavigationWord>SURFACE</NavigationWord>
-      </NavigationDiv>
       <Line></Line>
 
       {
@@ -136,32 +104,6 @@ const Line = styled.div`
   height: 1px;
   opacity: 0.2;
   background: #fff;
-`;
-
-const NavigationDiv = styled.div`
-  padding: 0px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1;
-`;
-
-const ActiveNavigationDiv = styled.div`
-  width: 62px;
-  padding: 17px 0;
-  border-bottom: 4px solid ${(props) => props.borderColor || "white"};
-`;
-
-const NavigationWord = styled.p`
-  color: #fff;
-  text-align: center;
-  font-size: 9px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: 1.929px;
-  text-transform: uppercase;
-  opacity: 0.5;
 `;
 
 const MenuDiv = styled.div`

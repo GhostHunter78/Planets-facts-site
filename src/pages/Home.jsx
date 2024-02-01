@@ -2,8 +2,20 @@ import styled from "styled-components";
 import data from "../data.json";
 import SourceIcon from "../SVGs/SourceIcon";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 const Home = () => {
+  const planets = [
+    { name: "Mercury", color: "#def4fc" },
+    { name: "Venus", color: "#f7cc7f" },
+    { name: "Earth", color: "#545bfe" },
+    { name: "Mars", color: "#FF6A45" },
+    { name: "Jupiter", color: "#ECAD7A" },
+    { name: "Saturn", color: "#FCCB6B" },
+    { name: "Uranus", color: "#65F0D5" },
+    { name: "Neptune", color: "#497EFA" },
+  ];
+
   const { name } = useParams();
   const planet = data.find((item) => item.name.toLowerCase() === name);
 
@@ -12,16 +24,81 @@ const Home = () => {
     return null;
   }
 
+  // Getting appropriate planet colors to then give them to the navigation words divs'
+  const getPlanetColor = (planetName) => {
+    const normalizedPlanetName = planetName.toLowerCase();
+    const planet = planets.find(
+      (p) => p.name.toLowerCase() === normalizedPlanetName
+    );
+    return planet ? planet.color : "white";
+  };
+
+  const activeNavigationColor = getPlanetColor(name);
+
+  // Setting OVERVIEW as a default navigation word
+  const [activeItem, setActiveItem] = useState("OVERVIEW");
+
+  const handleNavigationClick = (itemName) => {
+    setActiveItem(itemName);
+  };
+
+  const activeContent =
+    activeItem === "OVERVIEW"
+      ? planet.overview
+      : activeItem === "STRUCTURE"
+      ? planet.structure
+      : activeItem === "SURFACE"
+      ? planet.geology
+      : null;
+
+  const activeImage =
+    activeItem === "OVERVIEW"
+      ? planet.images.planet
+      : activeItem === "STRUCTURE"
+      ? planet.images.internal
+      : activeItem === "SURFACE"
+      ? planet.images.geology
+      : null;
+
   return (
     <>
+      <NavigationDiv>
+        <ActiveNavigationDiv
+          borderColor={activeItem === "OVERVIEW" ? activeNavigationColor : null}
+          onClick={() => handleNavigationClick("OVERVIEW")}
+        >
+          <NavigationWord opacity={activeItem === "OVERVIEW" ? "1" : null}>
+            OVERVIEW
+          </NavigationWord>
+        </ActiveNavigationDiv>
+        <ActiveNavigationDiv
+          borderColor={
+            activeItem === "STRUCTURE" ? activeNavigationColor : null
+          }
+          onClick={() => handleNavigationClick("STRUCTURE")}
+        >
+          <NavigationWord opacity={activeItem === "STRUCTURE" ? "1" : null}>
+            STRUCTURE
+          </NavigationWord>
+        </ActiveNavigationDiv>
+        <ActiveNavigationDiv
+          borderColor={activeItem === "SURFACE" ? activeNavigationColor : null}
+          onClick={() => handleNavigationClick("SURFACE")}
+        >
+          <NavigationWord opacity={activeItem === "SURFACE" ? "1" : null}>
+            SURFACE
+          </NavigationWord>
+        </ActiveNavigationDiv>
+      </NavigationDiv>
+      <Line></Line>
       <Main>
-        <PlanetImg src={planet.images.planet} alt={`${planet.name} planet`} />
+        <PlanetImg src={activeImage} alt={`${planet.name} planet`} />
         <PlanetName>{planet.name}</PlanetName>
-        <Content>{planet.overview.content}</Content>
+        <Content>{activeContent.content}</Content>
         <SourceDiv>
           <SourceText>Source : </SourceText>
           <SourceLink
-            href={planet.overview.source}
+            href={activeContent.source}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -60,6 +137,38 @@ const Main = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 39px 24px 47px 24px;
+`;
+
+const Line = styled.div`
+  height: 1px;
+  opacity: 0.2;
+  background: #fff;
+`;
+
+const NavigationDiv = styled.div`
+  padding: 0px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+`;
+
+const ActiveNavigationDiv = styled.div`
+  width: 62px;
+  padding: 17px 0;
+  border-bottom: 4px solid ${(props) => props.borderColor || "transparent"};
+`;
+
+const NavigationWord = styled.p`
+  color: #fff;
+  text-align: center;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1.929px;
+  text-transform: uppercase;
+  opacity: ${(props) => props.opacity || "0.5"};
 `;
 
 const PlanetImg = styled.img`
