@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ArrowIcon from "../SVGs/ArrowIcon";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // Creating array for planets to then iterate through them
-// with using map and display them in menu
+// with using map and display them in the menu
 const planets = [
   { name: "Mercury", color: "#def4fc" },
   { name: "Venus", color: "#f7cc7f" },
@@ -17,6 +17,29 @@ const planets = [
 ];
 
 const Header = () => {
+  const { name } = useParams();
+
+  // const getPlanetColor = (planetName) => {
+  //   const normalizedPlanetName =
+  //     typeof planetName === "string" ? planetName.toLowerCase() : "";
+
+  //   const planet = planets.find(
+  //     (p) => p.name.toLowerCase() === normalizedPlanetName
+  //   );
+
+  //   // return planet ? planet.color : "yellow";
+  //   return normalizedPlanetName === planet ? planet.color : "blue";
+  // };
+
+  const getPlanetColor = (planetName) => {
+    const normalizedPlanetName = planetName.toLowerCase();
+    const planet = planets.find(
+      (p) => p.name.toLowerCase() === normalizedPlanetName
+    );
+    return planet ? planet.color : "white";
+  };
+
+  const activeNavigationColor = getPlanetColor(name);
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
@@ -24,7 +47,7 @@ const Header = () => {
     setIsClicked(!isClicked);
   };
 
-  // When BurgerIcon is clicked it lowers its opcity to appear as "close icon"
+  // When BurgerIcon is clicked it lowers its opcity to appear as clicked
   const BurgerIcon = ({ onClick, isClicked }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -47,13 +70,19 @@ const Header = () => {
       </LogoAndBurgerIcon>
       <Line></Line>
       <NavigationDiv>
-        <NavigationWord>OVERVIEW</NavigationWord>
+        <ActiveNavigationDiv borderColor={activeNavigationColor}>
+          <NavigationWord>OVERVIEW</NavigationWord>
+        </ActiveNavigationDiv>
+        {/* <NavigationWord>OVERVIEW</NavigationWord> */}
         <NavigationWord>STRUCTURE</NavigationWord>
         <NavigationWord>SURFACE</NavigationWord>
       </NavigationDiv>
       <Line></Line>
 
-      {/*iterating through planets' array using map to display them inside the menu*/}
+      {
+        /*iterating through planets' array using map to display them inside the menu*/
+        // using React.Fragment to also return MenuLines
+      }
       <MenuDiv isClicked={isClicked}>
         {planets.map((planet, index) => (
           <React.Fragment key={planet.name}>
@@ -83,6 +112,8 @@ const Header = () => {
   );
 };
 
+export default Header;
+
 const LogoAndBurgerIcon = styled.div`
   display: flex;
   align-items: center;
@@ -108,11 +139,17 @@ const Line = styled.div`
 `;
 
 const NavigationDiv = styled.div`
-  padding: 16px 24px;
+  padding: 0px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 1;
+`;
+
+const ActiveNavigationDiv = styled.div`
+  width: 62px;
+  padding: 17px 0;
+  border-bottom: 4px solid ${(props) => props.borderColor || "white"};
 `;
 
 const NavigationWord = styled.p`
@@ -180,5 +217,3 @@ const MenuLine = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
-
-export default Header;

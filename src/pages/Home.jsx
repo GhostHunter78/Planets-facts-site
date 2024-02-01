@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import data from "../../data.json";
+import data from "../data.json";
 import SourceIcon from "../SVGs/SourceIcon";
 import { useParams } from "react-router-dom";
 

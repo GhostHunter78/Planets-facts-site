@@ -7,10 +7,17 @@ import styled from "styled-components";
 function App() {
   return (
     <Main>
-      <Header />
       <Routes>
         <Route path="/" element={<Navigate to="/planets/mercury" />} />
-        <Route path="/planets/:name" element={<Home />} />
+        <Route
+          path="/planets/:name"
+          element={
+            <>
+              <Header />
+              <Home />
+            </>
+          }
+        />
       </Routes>
     </Main>
   );
