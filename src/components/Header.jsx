@@ -1,7 +1,23 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ArrowIcon from "../SVGs/ArrowIcon";
 import { Link, useParams } from "react-router-dom";
+import BurgerIcon from "../SVGs/BurgerIcon";
+
+// Adding breakpoints for responsive designs
+const breakpoints = {
+  tablet: 768,
+  desktop: 1440,
+};
+
+const media = Object.keys(breakpoints).reduce((accumulator, label) => {
+  accumulator[label] = (...args) => css`
+    @media (min-width: ${breakpoints[label]}px) {
+      ${css(...args)}
+    }
+  `;
+  return accumulator;
+}, {});
 
 // Creating array for planets to then iterate through them
 // with using map and display them in the menu
@@ -24,20 +40,8 @@ const Header = () => {
     setIsClicked(!isClicked);
   };
 
-  // When BurgerIcon is clicked it lowers its opcity to appear as clicked
-  const BurgerIcon = ({ onClick, isClicked }) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="17"
-      onClick={onClick}
-      style={{ opacity: isClicked ? "0.2" : "1" }}
-    >
-      <g fill="#FFF" fillRule="evenodd">
-        <path d="M0 0h24v3H0zM0 7h24v3H0zM0 14h24v3H0z" />
-      </g>
-    </svg>
-  );
+  // Importing BurgerIcon SVG as a component
+  <BurgerIcon />;
 
   return (
     <div className="header">
@@ -87,6 +91,10 @@ const LogoAndBurgerIcon = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
+
+  ${media.tablet`
+    padding-top: 32px
+  `}
 `;
 
 const LogoText = styled.p`
@@ -98,12 +106,20 @@ const LogoText = styled.p`
   line-height: normal;
   letter-spacing: -1.05px;
   text-transform: uppercase;
+
+  ${media.tablet`
+    margin: auto
+  `}
 `;
 
 const Line = styled.div`
   height: 1px;
   opacity: 0.2;
   background: #fff;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const MenuDiv = styled.div`
