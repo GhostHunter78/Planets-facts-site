@@ -3,6 +3,9 @@ import data from "../data.json";
 import SourceIcon from "../SVGs/SourceIcon";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import TabletMenu from "../components/TabletMenu";
+import TabletContent from "../components/TabletContent";
+import TabletInfo from "../components/TabletInfo";
 
 const Home = () => {
   const planets = [
@@ -91,17 +94,8 @@ const Home = () => {
         </ActiveNavigationDiv>
       </NavigationDiv>
 
-      {/* Navigation Div for tablet design*/}
-      <TabletMenu>
-        <TabletMenuWord>mercury</TabletMenuWord>
-        <TabletMenuWord>venus</TabletMenuWord>
-        <TabletMenuWord>earth</TabletMenuWord>
-        <TabletMenuWord>mars</TabletMenuWord>
-        <TabletMenuWord>jupiter</TabletMenuWord>
-        <TabletMenuWord>saturn</TabletMenuWord>
-        <TabletMenuWord>uranus</TabletMenuWord>
-        <TabletMenuWord>neptune</TabletMenuWord>
-      </TabletMenu>
+      {/* Importing navigation div for tablet (tablet menu)*/}
+      <TabletMenu />
       <Line></Line>
       <Main>
         <PlanetImg src={activeImage} alt={`${planet.name} planet`} />
@@ -136,54 +130,10 @@ const Home = () => {
             <InfoNumbers>{planet.temperature}</InfoNumbers>
           </InfoDiv>
         </InfoDivs>
-        {/* Planet name, content and Wikipedia source div for Tablet dedisgn */}
-        <TabletMain>
-          <TabletPlanetSrcAndContent>
-            <TabletPlanetName>{planet.name}</TabletPlanetName>
-            <TabletContent>{activeContent.content}</TabletContent>
-            <TabletSourceDiv>
-              <SourceText>Source : </SourceText>
-              <SourceLink
-                href={activeContent.source}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Wikipedia
-              </SourceLink>
-              <SourceIcon />
-            </TabletSourceDiv>
-          </TabletPlanetSrcAndContent>
-
-          <TabletNavigationsDiv>
-            <TabletNavigationButton>
-              01 <span style={{ color: "white" }}>OVERVIEW</span>
-            </TabletNavigationButton>
-            <TabletNavigationButton>
-              02 <span style={{ color: "white" }}>INTERNAL STRUCTURE</span>
-            </TabletNavigationButton>
-            <TabletNavigationButton>
-              01 <span style={{ color: "white" }}>SURFACE GEOLOGY</span>
-            </TabletNavigationButton>
-          </TabletNavigationsDiv>
-        </TabletMain>
-        <TabletInfoDivs>
-          <TabletInfoDiv>
-            <TabletInfoTitle>rotation time</TabletInfoTitle>
-            <TabletInfoNumbers>{planet.rotation}</TabletInfoNumbers>
-          </TabletInfoDiv>
-          <TabletInfoDiv>
-            <TabletInfoTitle>revolution time</TabletInfoTitle>
-            <TabletInfoNumbers>{planet.revolution}</TabletInfoNumbers>
-          </TabletInfoDiv>
-          <TabletInfoDiv>
-            <TabletInfoTitle>radius</TabletInfoTitle>
-            <TabletInfoNumbers>{planet.radius}</TabletInfoNumbers>
-          </TabletInfoDiv>
-          <TabletInfoDiv>
-            <TabletInfoTitle>average temp.</TabletInfoTitle>
-            <TabletInfoNumbers>{planet.temperature}</TabletInfoNumbers>
-          </TabletInfoDiv>
-        </TabletInfoDivs>
+        {/* Planet name, content and Wikipedia source div for Tablet dedisgn. Importing TabletContent from components */}
+        <TabletContent />
+        {/* Importing TabletInfo from components to display planet information divs for tablet design */}
+        <TabletInfo />
       </Main>
     </>
   );
@@ -199,19 +149,6 @@ const Main = styled.div`
   padding: 39px 24px 47px 24px;
   @media (min-width: 768px) {
     padding: 36px 39px;
-  }
-`;
-
-const TabletMain = styled.div`
-  display: none;
-
-  @media (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    padding-left: 39px;
-    gap: 70px;
   }
 `;
 
@@ -231,28 +168,6 @@ const NavigationDiv = styled.div`
   @media (min-width: 768px) {
     display: none;
   }
-`;
-
-const TabletMenu = styled.div`
-  display: none;
-
-  @media (min-width: 768px) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 39px 52px 27px 52px;
-    gap: 33px;
-  }
-`;
-
-const TabletMenuWord = styled.p`
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 25px;
-  letter-spacing: 1px;
-  text-align: left;
-  text-transform: uppercase;
-  color: #ffffff92;
 `;
 
 const ActiveNavigationDiv = styled.div`
@@ -276,19 +191,7 @@ const NavigationWord = styled.p`
 const PlanetImg = styled.img`
   width: 50%;
   @media (min-width: 768px) {
-    margin-top: 40px;
-    width: 33%;
-  }
-`;
-
-const TabletPlanetSrcAndContent = styled.div`
-  display: none;
-
-  @media (min-width: 768px) {
-    width: 339px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: none;
   }
 `;
 
@@ -307,21 +210,6 @@ const PlanetName = styled.h2`
   }
 `;
 
-const TabletPlanetName = styled.h2`
-  display: none;
-  @media (min-width: 768px) {
-    display: block;
-    margin-top: 35px;
-    color: #fff;
-    text-align: center;
-    font-size: 48px;
-    font-weight: 400;
-    line-height: normal;
-    font-family: Antonio;
-    text-transform: uppercase;
-  }
-`;
-
 const Content = styled.p`
   margin-top: 16px;
   color: #ffffffb3;
@@ -336,20 +224,6 @@ const Content = styled.p`
   }
 `;
 
-const TabletContent = styled.p`
-  display: none;
-  @media (min-width: 768px) {
-    display: block;
-    margin-top: 24px;
-    color: #ffffffb3;
-    text-align: left;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
-  }
-`;
-
 const SourceDiv = styled.div`
   display: flex;
   align-items: center;
@@ -358,16 +232,6 @@ const SourceDiv = styled.div`
 
   @media (min-width: 768px) {
     display: none;
-  }
-`;
-
-const TabletSourceDiv = styled.div`
-  display: none;
-  @media (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    margin-top: 32px;
-    gap: 5px;
   }
 `;
 
@@ -390,27 +254,6 @@ const SourceLink = styled.a`
   text-decoration-line: underline;
 `;
 
-const TabletNavigationsDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin-top: 50px;
-`;
-
-const TabletNavigationButton = styled.button`
-  width: 281px;
-  padding: 10px 20px;
-  border: 1px solid #ffffff49;
-  font-size: 11px;
-  font-weight: 900;
-  line-height: 25px;
-  letter-spacing: 1.9285714626312256px;
-  text-align: left;
-  color: #ffffff5c;
-  background: none;
-`;
-
 const InfoDivs = styled.div`
   margin-top: 28px;
   display: flex;
@@ -423,18 +266,6 @@ const InfoDivs = styled.div`
   }
 `;
 
-const TabletInfoDivs = styled.div`
-  display: none;
-  @media (min-width: 768px) {
-    margin-top: 28px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    margin-left: 40px;
-  }
-`;
-
 const InfoDiv = styled.div`
   width: 327px;
   padding: 16px 24px;
@@ -442,18 +273,6 @@ const InfoDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   border: 1px solid #ffffff49;
-`;
-
-const TabletInfoDiv = styled.div`
-  display: none;
-  @media (min-width: 768px) {
-    width: 167px;
-    padding: 16px 0 19px 15px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ffffff49;
-    gap: 6px;
-  }
 `;
 
 const InfoTitle = styled.p`
@@ -467,21 +286,6 @@ const InfoTitle = styled.p`
   opacity: 0.2;
 `;
 
-const TabletInfoTitle = styled.p`
-  display: none;
-  @media (min-width: 768px) {
-    display: flex;
-    color: #fff;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 16px;
-    letter-spacing: 0.727px;
-    text-transform: uppercase;
-    opacity: 0.2;
-  }
-`;
-
 const InfoNumbers = styled.h2`
   color: #fff;
   font-family: Antonio;
@@ -491,19 +295,4 @@ const InfoNumbers = styled.h2`
   line-height: normal;
   letter-spacing: -0.75px;
   text-transform: uppercase;
-`;
-
-const TabletInfoNumbers = styled.h2`
-  display: none;
-  @media (min-width: 768px) {
-    display: flex;
-    color: #fff;
-    font-family: Antonio;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.75px;
-    text-transform: uppercase;
-  }
 `;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import ArrowIcon from "../SVGs/ArrowIcon";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import BurgerIcon from "../SVGs/BurgerIcon";
 
 // Adding breakpoints for responsive designs
