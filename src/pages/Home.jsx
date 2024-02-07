@@ -130,10 +130,12 @@ const Home = () => {
             <InfoNumbers>{planet.temperature}</InfoNumbers>
           </InfoDiv>
         </InfoDivs>
-        {/* Planet name, content and Wikipedia source div for Tablet dedisgn. Importing TabletContent from components */}
-        <TabletContent />
-        {/* Importing TabletInfo from components to display planet information divs for tablet design */}
-        <TabletInfo />
+        <TabletDiv>
+          {/* Planet name, content and Wikipedia source div for Tablet dedisgn. Importing TabletContent from components */}
+          <TabletContent />
+          {/* Importing TabletInfo from components to display planet information divs for tablet design */}
+          <TabletInfo />
+        </TabletDiv>
       </Main>
     </>
   );
@@ -295,4 +297,13 @@ const InfoNumbers = styled.h2`
   line-height: normal;
   letter-spacing: -0.75px;
   text-transform: uppercase;
+`;
+
+const TabletDiv = styled.div`
+  @media (min-width: 1440px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 165px;
+  }
 `;

@@ -7,6 +7,8 @@ const TabletPlanetImage = ({ activeImage }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        height: "400px",
+        width: "100%",
       }}
     >
       {activeImage && <Planet src={activeImage} alt="Planet" />}
@@ -17,6 +19,5 @@ const TabletPlanetImage = ({ activeImage }) => {
 export default TabletPlanetImage;
 
 const Planet = styled.img`
-  margin-top: 40px;
-  width: 70%;
+  width: 40%;
 `;

@@ -48,6 +48,10 @@ const TabletInfoDivs = styled.div`
     gap: 8px;
     margin-left: 40px;
   }
+
+  @media (min-width: 1440px) {
+    margin-top: 87px;
+  }
 `;
 
 const TabletInfoDiv = styled.div`
@@ -59,6 +63,11 @@ const TabletInfoDiv = styled.div`
     flex-direction: column;
     border: 1px solid #ffffff49;
     gap: 6px;
+  }
+
+  @media (min-width: 1440px) {
+    width: 255px;
+    padding: 20px 0 27px 23px;
   }
 `;
 
@@ -75,6 +84,10 @@ const TabletInfoTitle = styled.p`
     text-transform: uppercase;
     opacity: 0.2;
   }
+
+  @media (min-width: 1440px) {
+    font-size: 14px;
+  }
 `;
 
 const TabletInfoNumbers = styled.h2`
@@ -89,5 +102,9 @@ const TabletInfoNumbers = styled.h2`
     line-height: normal;
     letter-spacing: -0.75px;
     text-transform: uppercase;
+  }
+
+  @media (min-width: 1440px) {
+    font-size: 40px;
   }
 `;

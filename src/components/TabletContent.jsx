@@ -62,55 +62,67 @@ const TabletContent = () => {
 
   return (
     <>
-      <TabletPlanetImage activeImage={activeImage} />
-      <TabletMain>
-        <TabletPlanetSrcAndContent>
-          <TabletPlanetName>{planet.name}</TabletPlanetName>
-          <Content>{activeContent.content}</Content>
-          <TabletSourceDiv>
-            <SourceText>Source : </SourceText>
-            <SourceLink
-              href={activeContent.source}
-              target="_blank"
-              rel="noopener noreferrer"
+      <ImageAndMain>
+        <TabletPlanetImage activeImage={activeImage} />
+        <TabletMain>
+          <TabletPlanetSrcAndContent>
+            <TabletPlanetName>{planet.name}</TabletPlanetName>
+            <Content>{activeContent.content}</Content>
+            <TabletSourceDiv>
+              <SourceText>Source : </SourceText>
+              <SourceLink
+                href={activeContent.source}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikipedia
+              </SourceLink>
+              <SourceIcon />
+            </TabletSourceDiv>
+          </TabletPlanetSrcAndContent>
+          <TabletNavigationsDiv>
+            <ActiveNavigationButton
+              onClick={() => handleNavigationClick("OVERVIEW")}
+              backgroundColor={
+                activeItem === "OVERVIEW" ? activeNavigationColor : null
+              }
             >
-              Wikipedia
-            </SourceLink>
-            <SourceIcon />
-          </TabletSourceDiv>
-        </TabletPlanetSrcAndContent>
-        <TabletNavigationsDiv>
-          <ActiveNavigationButton
-            onClick={() => handleNavigationClick("OVERVIEW")}
-            backgroundColor={
-              activeItem === "OVERVIEW" ? activeNavigationColor : null
-            }
-          >
-            01 <span style={{ color: "white" }}>OVERVIEW</span>
-          </ActiveNavigationButton>
-          <ActiveNavigationButton
-            onClick={() => handleNavigationClick("STRUCTURE")}
-            backgroundColor={
-              activeItem === "STRUCTURE" ? activeNavigationColor : null
-            }
-          >
-            02 <span style={{ color: "white" }}>INTERNAL STRUCTURE</span>
-          </ActiveNavigationButton>
-          <ActiveNavigationButton
-            onClick={() => handleNavigationClick("SURFACE")}
-            backgroundColor={
-              activeItem === "SURFACE" ? activeNavigationColor : null
-            }
-          >
-            01 <span style={{ color: "white" }}>SURFACE GEOLOGY</span>
-          </ActiveNavigationButton>
-        </TabletNavigationsDiv>
-      </TabletMain>
+              01 <span style={{ color: "white" }}>OVERVIEW</span>
+            </ActiveNavigationButton>
+            <ActiveNavigationButton
+              onClick={() => handleNavigationClick("STRUCTURE")}
+              backgroundColor={
+                activeItem === "STRUCTURE" ? activeNavigationColor : null
+              }
+            >
+              02 <span style={{ color: "white" }}>INTERNAL STRUCTURE</span>
+            </ActiveNavigationButton>
+            <ActiveNavigationButton
+              onClick={() => handleNavigationClick("SURFACE")}
+              backgroundColor={
+                activeItem === "SURFACE" ? activeNavigationColor : null
+              }
+            >
+              01 <span style={{ color: "white" }}>SURFACE GEOLOGY</span>
+            </ActiveNavigationButton>
+          </TabletNavigationsDiv>
+        </TabletMain>
+      </ImageAndMain>
     </>
   );
 };
 
 export default TabletContent;
+
+const ImageAndMain = styled.div`
+  @media (min-width: 1440px) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+  }
+`;
 
 const TabletMain = styled.div`
   display: none;
@@ -122,6 +134,13 @@ const TabletMain = styled.div`
     flex-direction: row;
     padding-left: 39px;
     gap: 70px;
+  }
+
+  @media (min-width: 1440px) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
   }
 `;
 
@@ -149,6 +168,10 @@ const TabletPlanetName = styled.h2`
     font-family: Antonio;
     text-transform: uppercase;
   }
+
+  @media (min-width: 1440px) {
+    font-size: 80px;
+  }
 `;
 
 const Content = styled.p`
@@ -163,6 +186,11 @@ const Content = styled.p`
     font-weight: 400;
     line-height: 22px;
   }
+
+  @media (min-width: 1440px) {
+    font-size: 18px;
+    width: 350px;
+  }
 `;
 
 const TabletSourceDiv = styled.div`
@@ -173,6 +201,10 @@ const TabletSourceDiv = styled.div`
     margin-top: 32px;
     gap: 5px;
   }
+
+  @media (min-width: 1440px) {
+    margin-top: 24px;
+  }
 `;
 
 const TabletNavigationsDiv = styled.div`
@@ -181,6 +213,10 @@ const TabletNavigationsDiv = styled.div`
   align-items: center;
   gap: 16px;
   margin-top: 50px;
+
+  @media (min-width: 1440px) {
+    margin-top: -40px;
+  }
 `;
 
 const TabletNavigationButton = styled.button`
@@ -194,6 +230,11 @@ const TabletNavigationButton = styled.button`
   text-align: left;
   color: #ffffff5c;
   background: none;
+
+  @media (min-width: 1440px) {
+    width: 350px;
+    cursor: pointer;
+  }
 `;
 
 const ActiveNavigationButton = styled(TabletNavigationButton)`
@@ -207,6 +248,10 @@ const SourceText = styled.p`
   font-weight: 400;
   line-height: 25px;
   opacity: 0.5;
+
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 const SourceLink = styled.a`

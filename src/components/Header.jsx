@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import ArrowIcon from "../SVGs/ArrowIcon";
 import { Link } from "react-router-dom";
 import BurgerIcon from "../SVGs/BurgerIcon";
+import DesktopMenu from "./DesktopMenu";
 
 // Adding breakpoints for responsive designs
 const breakpoints = {
@@ -50,9 +51,12 @@ const Header = () => {
         <BurgerIcon onClick={handleClick} isClicked={isClicked} />
       </LogoAndBurgerIcon>
       <Line></Line>
-
+      <DesktopHeader>
+        <LogoText>THE PLANETS</LogoText>
+        <DesktopMenu />
+      </DesktopHeader>
       {
-        /*iterating through planets' array using map to display them inside the menu*/
+        /*iterating through planets' array using map to display them inside the menu (for mobile)*/
         // using React.Fragment to also return MenuLines
       }
       <MenuDiv isClicked={isClicked}>
@@ -95,6 +99,10 @@ const LogoAndBurgerIcon = styled.div`
   ${media.tablet`
     padding-top: 32px
   `}
+
+  ${media.desktop`
+  display: none;
+  `}
 `;
 
 const LogoText = styled.p`
@@ -109,6 +117,23 @@ const LogoText = styled.p`
 
   ${media.tablet`
     margin: auto
+  `}
+
+  ${media.desktop`
+    margin: 0;
+    cursor: pointer;
+    font-size: 40px;
+  `}
+`;
+
+const DesktopHeader = styled.div`
+  display: none;
+
+  ${media.desktop`
+  padding: 22px 40px 27px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   `}
 `;
 

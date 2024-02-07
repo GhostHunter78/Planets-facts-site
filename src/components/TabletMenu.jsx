@@ -55,6 +55,10 @@ const Menu = styled.div`
     padding: 39px 52px 27px 52px;
     gap: 33px;
   }
+
+  @media (min-width: 1440px) {
+    display: none;
+  }
 `;
 
 const MenuWord = styled.p`
